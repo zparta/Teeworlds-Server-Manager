@@ -38,6 +38,7 @@ namespace teeworlds_srv_app
             this.srv_init = new System.Windows.Forms.Button();
             this.srv_stop = new System.Windows.Forms.Button();
             this.Srv_Output = new System.Windows.Forms.TextBox();
+            this.srv_restart = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // maplist
@@ -103,7 +104,7 @@ namespace teeworlds_srv_app
             this.save_btn.Name = "save_btn";
             this.save_btn.Size = new System.Drawing.Size(156, 33);
             this.save_btn.TabIndex = 6;
-            this.save_btn.Text = "spara knapp/debug knapp";
+            this.save_btn.Text = "Save/Debug Button";
             this.save_btn.UseVisualStyleBackColor = true;
             this.save_btn.Click += new System.EventHandler(this.save_btn_Click);
             // 
@@ -113,17 +114,18 @@ namespace teeworlds_srv_app
             this.srv_init.Name = "srv_init";
             this.srv_init.Size = new System.Drawing.Size(178, 54);
             this.srv_init.TabIndex = 7;
-            this.srv_init.Text = "starta server";
+            this.srv_init.Text = "Start server";
             this.srv_init.UseVisualStyleBackColor = true;
             this.srv_init.Click += new System.EventHandler(this.srv_init_Click);
             // 
             // srv_stop
             // 
+            this.srv_stop.Enabled = false;
             this.srv_stop.Location = new System.Drawing.Point(341, 137);
             this.srv_stop.Name = "srv_stop";
             this.srv_stop.Size = new System.Drawing.Size(174, 45);
             this.srv_stop.TabIndex = 8;
-            this.srv_stop.Text = "stoppa";
+            this.srv_stop.Text = "Stop server";
             this.srv_stop.UseVisualStyleBackColor = true;
             this.srv_stop.Click += new System.EventHandler(this.srv_stop_Click);
             // 
@@ -137,11 +139,23 @@ namespace teeworlds_srv_app
             this.Srv_Output.Size = new System.Drawing.Size(335, 205);
             this.Srv_Output.TabIndex = 9;
             // 
+            // srv_restart
+            // 
+            this.srv_restart.Enabled = false;
+            this.srv_restart.Location = new System.Drawing.Point(206, 282);
+            this.srv_restart.Name = "srv_restart";
+            this.srv_restart.Size = new System.Drawing.Size(75, 23);
+            this.srv_restart.TabIndex = 10;
+            this.srv_restart.Text = "Restart";
+            this.srv_restart.UseVisualStyleBackColor = true;
+            this.srv_restart.Click += new System.EventHandler(this.srv_restart_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(566, 559);
+            this.Controls.Add(this.srv_restart);
             this.Controls.Add(this.Srv_Output);
             this.Controls.Add(this.srv_stop);
             this.Controls.Add(this.srv_init);
@@ -172,6 +186,7 @@ namespace teeworlds_srv_app
         private System.Windows.Forms.Button srv_init;
         private System.Windows.Forms.Button srv_stop;
         private System.Windows.Forms.TextBox Srv_Output;
+        private System.Windows.Forms.Button srv_restart;
     }
 }
 

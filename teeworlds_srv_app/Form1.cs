@@ -16,7 +16,7 @@ namespace teeworlds_srv_app
     {
         private bool ml_changed = false;
         private TextReader tr = null;
-        private Process proc;// = new Process();
+        private Process proc;
         public delegate void UpdateOutputCallback(String text);
         public UpdateOutputCallback updateoutput;
 
@@ -35,6 +35,8 @@ namespace teeworlds_srv_app
         public void addupdateoutput(string text)
         {
             /* insert method for parsing output
+             * for connected players and such
+             * shouldnt be to much of a hassle.
              * */
             this.Srv_Output.Text += text + Environment.NewLine;
             this.Srv_Output.SelectionStart = this.Srv_Output.Text.Length;
@@ -142,9 +144,8 @@ namespace teeworlds_srv_app
             }
             catch (FileNotFoundException ex)
             {
-                MessageBox.Show("Config file not Found: "+ e.ToString(), "Config file not found.", MessageBoxButtons.OK,
+                MessageBox.Show("Config file not Found: "+ ex.FileName.ToString(), "Config file not found.", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
-                //Console.WriteLine("Config file not Found: " + e.ToString());
             }
 
             if (tr != null)
@@ -190,6 +191,7 @@ namespace teeworlds_srv_app
 
             this.srv_init.Enabled = false;
             this.srv_stop.Enabled = true;
+            this.srv_restart.Enabled = true;
         }
 
         private void srv_stop_Click(object sender, EventArgs e)
@@ -198,11 +200,18 @@ namespace teeworlds_srv_app
 
             this.srv_init.Enabled = true;
             this.srv_stop.Enabled = false;
+            this.srv_restart.Enabled = false;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.proc_stop();
+        }
+
+        private void srv_restart_Click(object sender, EventArgs e)
+        {
+            this.proc_stop();
+            this.proc_start("D:\\teeworlds\\teeworlds_srv.exe");
         }
     }
 }
