@@ -17,8 +17,6 @@ namespace teeworlds_srv_app
         private bool ml_changed = false;
         private TextReader tr = null;
         private Process proc;// = new Process();
-        private bool run = false;
-        private int runs = 0;
         public delegate void UpdateOutputCallback(String text);
         public UpdateOutputCallback updateoutput;
 
@@ -52,10 +50,9 @@ namespace teeworlds_srv_app
         }
         private void proc_start(string fName)
         {
-            if (run == false)
+            if (proc == null)
             {
                 proc = new Process();
-                run = true;
                 proc.StartInfo.FileName = fName;
                 proc.StartInfo.RedirectStandardOutput = true;
                 proc.StartInfo.RedirectStandardError = true;
@@ -65,20 +62,15 @@ namespace teeworlds_srv_app
                 proc.ErrorDataReceived += new DataReceivedEventHandler(proc_DataReceived);
                 proc.OutputDataReceived += new DataReceivedEventHandler(proc_DataReceived);
                 proc.Start();
-                //if (runs == 0)
-                //{
-                //    runs = 1;
-                    proc.BeginErrorReadLine();
-                    proc.BeginOutputReadLine();
-                //}
+                proc.BeginErrorReadLine();
+                proc.BeginOutputReadLine();
             }
         }
 
         private void proc_stop()
         {
-            if (run == true)
+            if (proc != null)
             {
-                run = false;
                 proc.Kill();
                 proc = null;
             }
@@ -150,6 +142,8 @@ namespace teeworlds_srv_app
             }
             catch (FileNotFoundException ex)
             {
+                MessageBox.Show("Config file not Found: "+ e.ToString(), "Config file not found.", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                 //Console.WriteLine("Config file not Found: " + e.ToString());
             }
 
@@ -187,16 +181,11 @@ namespace teeworlds_srv_app
 
                 // close the file
                 tr.Close();
-                //while(
-                //Console.WriteLine("map 5: " + maps[4]);
             }
         }
 
         private void srv_init_Click(object sender, EventArgs e)
         {
-            //var proc = new Process();
-            
-
             this.proc_start("D:\\teeworlds\\teeworlds_srv.exe");
 
             this.srv_init.Enabled = false;
@@ -213,7 +202,6 @@ namespace teeworlds_srv_app
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            /* check to see if the server is running */
             this.proc_stop();
         }
     }
