@@ -16,7 +16,7 @@ namespace teeworlds_srv_app
     {
         private bool ml_changed = false;
         private TextReader tr = null;
-        private Process proc = new Process();
+        private Process proc;// = new Process();
         private bool run = false;
         private int runs = 0;
         public delegate void UpdateOutputCallback(String text);
@@ -54,6 +54,7 @@ namespace teeworlds_srv_app
         {
             if (run == false)
             {
+                proc = new Process();
                 run = true;
                 proc.StartInfo.FileName = fName;
                 proc.StartInfo.RedirectStandardOutput = true;
@@ -64,12 +65,12 @@ namespace teeworlds_srv_app
                 proc.ErrorDataReceived += new DataReceivedEventHandler(proc_DataReceived);
                 proc.OutputDataReceived += new DataReceivedEventHandler(proc_DataReceived);
                 proc.Start();
-                if (runs == 0)
-                {
-                    runs = 1;
+                //if (runs == 0)
+                //{
+                //    runs = 1;
                     proc.BeginErrorReadLine();
                     proc.BeginOutputReadLine();
-                }
+                //}
             }
         }
 
@@ -79,6 +80,7 @@ namespace teeworlds_srv_app
             {
                 run = false;
                 proc.Kill();
+                proc = null;
             }
         }
         private void startmap_btn_Click(object sender, EventArgs e)
