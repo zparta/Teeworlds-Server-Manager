@@ -38,7 +38,7 @@ namespace teeworlds_srv_app
              * for connected players and such
              * shouldnt be to much of a hassle.
              * */
-            this.Srv_Output.Text += text + Environment.NewLine;
+            this.Srv_Output.AppendText(text + Environment.NewLine);
             this.Srv_Output.SelectionStart = this.Srv_Output.Text.Length;
             this.Srv_Output.ScrollToCaret();
         }
@@ -212,6 +212,14 @@ namespace teeworlds_srv_app
         {
             this.proc_stop();
             this.proc_start("D:\\teeworlds\\teeworlds_srv.exe");
+        }
+
+        private void Srv_Output_TextChanged(object sender, EventArgs e)
+        {
+            if (this.Srv_Output.Lines[this.Srv_Output.Lines.Length-2].ToString().Contains("datafile"))
+            {
+                this.debugbox.Text += "1";
+            }
         }
     }
 }

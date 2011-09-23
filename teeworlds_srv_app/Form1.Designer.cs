@@ -138,6 +138,7 @@ namespace teeworlds_srv_app
             this.Srv_Output.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.Srv_Output.Size = new System.Drawing.Size(335, 205);
             this.Srv_Output.TabIndex = 9;
+            this.Srv_Output.TextChanged += new System.EventHandler(this.Srv_Output_TextChanged);
             // 
             // srv_restart
             // 
