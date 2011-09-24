@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Threading;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 
 namespace teeworlds_srv_app
@@ -38,9 +39,12 @@ namespace teeworlds_srv_app
              * for connected players and such
              * shouldnt be to much of a hassle.
              * */
-            this.Srv_Output.AppendText(text + Environment.NewLine);
-            this.Srv_Output.SelectionStart = this.Srv_Output.Text.Length;
-            this.Srv_Output.ScrollToCaret();
+            if (text.Length != 0)
+            {
+                this.Srv_Output.AppendText(Environment.NewLine + text);
+                this.Srv_Output.SelectionStart = this.Srv_Output.Text.Length;
+                this.Srv_Output.ScrollToCaret();
+            }
         }
 
         public void proc_DataReceived(object sender, DataReceivedEventArgs e)
@@ -216,7 +220,11 @@ namespace teeworlds_srv_app
 
         private void Srv_Output_TextChanged(object sender, EventArgs e)
         {
-            if (this.Srv_Output.Lines[this.Srv_Output.Lines.Length-2].ToString().Contains("datafile"))
+           /* if (this.Srv_Output.Lines[this.Srv_Output.Lines.Length - 1].ToString() == "" && this.Srv_Output.Lines.Length > 1)
+            {
+                this.Srv_Output.Lines[this.Srv_Output.Lines.Length - 2].Remove(1);
+            }*/
+            if (this.Srv_Output.Lines[this.Srv_Output.Lines.Length-1].ToString().Contains("datafile"))
             {
                 this.debugbox.Text += "1";
             }
