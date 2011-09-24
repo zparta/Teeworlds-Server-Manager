@@ -227,10 +227,6 @@ namespace teeworlds_srv_app
 
         private void Srv_Output_TextChanged(object sender, EventArgs e)
         {
-           /* if (this.Srv_Output.Lines[this.Srv_Output.Lines.Length - 1].ToString() == "" && this.Srv_Output.Lines.Length > 1)
-            {
-                this.Srv_Output.Lines[this.Srv_Output.Lines.Length - 2].Remove(1);
-            }*/
             if (this.Srv_Output.Lines[this.Srv_Output.Lines.Length-1].ToString().Contains("datafile"))
             {
                 this.debugbox.Text += this.Srv_Output.Lines.Length-1;
