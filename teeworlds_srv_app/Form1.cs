@@ -41,7 +41,14 @@ namespace teeworlds_srv_app
              * */
             if (text.Length != 0)
             {
-                this.Srv_Output.AppendText(Environment.NewLine + text);
+                if (this.Srv_Output.Lines.Length < 1)
+                {
+                    this.Srv_Output.AppendText(text);
+                }
+                else
+                {
+                    this.Srv_Output.AppendText(Environment.NewLine + text);
+                }
                 this.Srv_Output.SelectionStart = this.Srv_Output.Text.Length;
                 this.Srv_Output.ScrollToCaret();
             }
