@@ -226,7 +226,7 @@ namespace teeworlds_srv_app
             }*/
             if (this.Srv_Output.Lines[this.Srv_Output.Lines.Length-1].ToString().Contains("datafile"))
             {
-                this.debugbox.Text += "1";
+                this.debugbox.Text += this.Srv_Output.Lines.Length-1;
             }
         }
     }
